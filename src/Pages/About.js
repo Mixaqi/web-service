@@ -25,7 +25,7 @@ export default class About extends Component {
                             </Nav>
                         </Col>
                         <Col sm={9}>
-                            <Tab.Content>
+                            <Tab.Content className="mt-2">
                                 <Tab.Pane eventKey="first">
                                 <img src={drugs1} alt="Drugs 1" />
                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
