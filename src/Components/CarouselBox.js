@@ -14,7 +14,7 @@ export default class CarouselBox extends Component {
                     />
                     <Carousel.Caption>
                         <h3>Jar image</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ax</p>
                     </Carousel.Caption>
                 </Carousel.Item>
 
