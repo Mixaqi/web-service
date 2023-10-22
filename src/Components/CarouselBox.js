@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Carousel from "react-bootstrap/Carousel";
 import jarImg from "../assets/slider1_with_jar.jpg";
 import addictionImg from "../assets/slider2_addiction.jpg";
+
+
 export default class CarouselBox extends Component {
     render() {
         return (
@@ -10,7 +12,8 @@ export default class CarouselBox extends Component {
                     <img
                         className='d-block w-100'
                         src={jarImg}
-                        alt="Jar"
+                        alt="First slide"
+                        style={{ maxHeight: "60vh"}}
                     />
                     <Carousel.Caption>
                         <h3>Jar image</h3>
@@ -22,7 +25,8 @@ export default class CarouselBox extends Component {
                     <img
                         className='d-block w-100'
                         src={addictionImg}
-                        alt="addiction"
+                        alt="Second slide"
+                        style={{ maxHeight: "60vh"}}
                     />
                     <Carousel.Caption>
                         <h3>Addiction image</h3>
@@ -30,8 +34,6 @@ export default class CarouselBox extends Component {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
-
-
         )
     }
 }
