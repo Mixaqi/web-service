@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./form.css"
 
 
@@ -15,7 +15,14 @@ function Contacts() {
     const [nameError, setNameError] = useState("Имя не может быть пустым")
     const [ageError, setAgeError] = useState("Возраст не может быть пустым")
     const [infoError, setInfoError] = useState("Это поле не может быть пустым")
+    const [formValid, setFormValid] = useState(false)
 
+    useEffect(() => {
+        if (emailError || nameError || ageError || infoError)
+            setFormValid(false)
+        else
+            setFormValid(true)
+    }, [emailError, nameError, ageError, infoError])
 
 
     const emailHandler = (e) => {
@@ -81,8 +88,8 @@ function Contacts() {
             {(ageDirty && ageError) && <div className="error">{ageError}</div>}
             <input onChange={e => ageHandler(e)} value={age} onBlur={e => blurHandler(e)} name="age" type="number" placeholder="Введите возраст" />
             {(infoDirty && infoError) && <div className="error">{infoError}</div>}
-            <textarea onChange={e => infoHandler(e)} value={info} onBlur={e => blurHandler(e)} name="info" placeholder="Опишите вашу проблему" rows = "6" cols = "40"></textarea>
-            <button type="submit">Отправить </button>
+            <textarea onChange={e => infoHandler(e)} value={info} onBlur={e => blurHandler(e)} name="info" placeholder="Опишите вашу проблему" rows="8" cols="40" style={{ overflowY: "auto" }}></textarea>
+            <button disabled={!formValid} type="submit">Отправить </button>
         </form>
     );
 }
