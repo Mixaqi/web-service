@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "../Pages/Home";
 import About from "../Pages/About";
 import Contacts from "../Pages/Contacts";
+import Report from "../Pages/Report";
 
 export default class Header extends Component {
     render() {
@@ -34,6 +35,7 @@ export default class Header extends Component {
                                 <Nav.Link href="/">Home</Nav.Link>
                                 <Nav.Link href="/about">About</Nav.Link>
                                 <Nav.Link href="/contacts">Contacts</Nav.Link>
+                                <Nav.Link href="/report">Report</Nav.Link>
                             </Nav>
                         </NavbarCollapse>
                     </Container>
@@ -43,6 +45,7 @@ export default class Header extends Component {
                         <Route exact path="/" element={<Home/>} />
                         <Route exact path="/about" element={<About/>} />
                         <Route exact path="/contacts" element={<Contacts/>} />
+                        <Route exact path="/report" element={<Report/>} />
                     </Routes>
                 </Router>
             </>
