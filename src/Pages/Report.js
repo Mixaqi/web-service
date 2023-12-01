@@ -1,57 +1,44 @@
-import React, { useState, useEffect } from "react";
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
-import "./form.css";
+import React, { useState } from "react";
 
-function MapComponent({ onLocationChange }) {
-  const [selectedLocation, setSelectedLocation] = useState(null);
+const Report = () => {
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
 
-  const handleMapClick = (event) => {
-    setSelectedLocation({ lat: event.latLng.lat(), lng: event.latLng.lng() });
-    onLocationChange({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+  const generateMapString = () => {
+    return `https://maps.google.com/maps?q=${latitude}+${longitude}&hl=ru&z=16&output=embed`;
   };
 
   return (
-    <GoogleMap
-      defaultZoom={2}
-      defaultCenter={{ lat: 0, lng: 0 }}
-      onClick={handleMapClick}
-    >
-      {selectedLocation && <Marker position={selectedLocation} />}
-    </GoogleMap>
-  );
-}
-
-const WrappedMapComponent = withScriptjs(withGoogleMap(MapComponent));
-
-function Contacts() {
-  // ... (остальной код вашей формы)
-
-  const [location, setLocation] = useState(null);
-
-  const handleLocationChange = (newLocation) => {
-    setLocation(newLocation);
-  };
-
-  // ... (остальной код вашей формы)
-
-  return (
-    <form>
-      {/* ... (остальной код вашей формы) */}
-
-      <div style={{ height: "300px", marginBottom: "20px" }}>
-        <WrappedMapComponent
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&v=3.exp&libraries=geometry,drawing,places`}
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `100%` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
-          onLocationChange={handleLocationChange}
+    <div>
+      <h3>Введите координаты для отображения карты:</h3>
+      <div>
+        <label>Широта:</label>
+        <input
+          type="text"
+          value={latitude}
+          onChange={(e) => setLatitude(e.target.value)}
         />
       </div>
-
-      {/* ... (остальной код вашей формы) */}
-    </form>
+      <div>
+        <label>Долгота:</label>
+        <input
+          type="text"
+          value={longitude}
+          onChange={(e) => setLongitude(e.target.value)}
+        />
+      </div>
+      <iframe
+        title="Google Map"
+        width="600"
+        height="340"
+        frameBorder="0"
+        scrolling="no"
+        marginHeight="0"
+        marginWidth="0"
+        src={generateMapString()}
+      ></iframe>
+    </div>
   );
-}
+};
 
 export default Report;
-
