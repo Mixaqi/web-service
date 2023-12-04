@@ -1,18 +1,13 @@
-import React from 'react';
-import Report from './Pages/Report';
+import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import Header from './Components/Header';
 
-const App = () => {
-  const handleMapClick = (latitude, longitude) => {
-    console.log(`Clicked on coordinates: ${latitude}, ${longitude}`);
-    // Do something with the coordinates, such as updating state or making an API call
-  }; 
-
+function App() {
   return (
     <div>
-      <h1>Interactive Map</h1>
-      <Report onMapClick={handleMapClick} />
+      <Header />
     </div>
   );
-};
+}
 
 export default App;
