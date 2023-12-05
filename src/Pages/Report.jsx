@@ -13,6 +13,12 @@ const Report = () => {
     setMarkers([...markers, newMarker]);
   };
 
+  const deleteMarker = (index) => {
+    const updatedMarkers = [...markers];
+    updatedMarkers.splice(index, 1);
+    setMarkers(updatedMarkers);
+  };
+
   return (
     <LoadScript googleMapsApiKey="AIzaSyBbew2lrwBi8ibxBzzO_0wO24e4p2cujF8">
       <GoogleMap
@@ -22,7 +28,11 @@ const Report = () => {
         onClick={handleMapClick}
       >
         {markers.map((marker, index) => (
-          <Marker key={index} position={marker} />
+          <Marker
+            key={index}
+            position={marker}
+            onClick={() => deleteMarker(index)}
+          />
         ))}
       </GoogleMap>
     </LoadScript>
