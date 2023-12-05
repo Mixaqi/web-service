@@ -3,6 +3,8 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const Report = () => {
   const [markers, setMarkers] = useState([]);
+  const [textData, setTextData] = useState('');
+  const [mapCenter, setMapCenter] = useState({ lat: 0, lng: 0 });
 
   const handleMapClick = (event) => {
     const newMarker = {
@@ -25,29 +27,15 @@ const Report = () => {
     setMarkers(updatedMarkers);
   };
 
-  useEffect(() => {
-
-    if (markers.length > 0) {
-      const bounds = new window.google.maps.LatLngBounds();
-      markers.forEach((marker) => {
-        bounds.extend(marker);
-      });
-
-      const newCenter = {
-        lat: bounds.getCenter().lat(),
-        lng: bounds.getCenter().lng(),
-      };
-
-      setMapCenter(newCenter);
-    }
-  }, [markers]);
-
-  const [mapCenter, setMapCenter] = useState({ lat: 0, lng: 0 });
+  const handleSendData = () => {
+    console.log('Sending data:', { markers, textData });
+    // добавить отправку на сервер
+  };
 
   return (
     <LoadScript googleMapsApiKey="AIzaSyBbew2lrwBi8ibxBzzO_0wO24e4p2cujF8">
       <GoogleMap
-        mapContainerStyle={{ height: '400px', width: '100%' }}
+        mapContainerStyle={{ height: '60vh', width: '100%' }}
         zoom={10}
         center={mapCenter}
         onClick={handleMapClick}
@@ -62,6 +50,15 @@ const Report = () => {
           />
         ))}
       </GoogleMap>
+      <div>
+        <textarea
+          value={textData}
+          onChange={(e) => setTextData(e.target.value)}
+          placeholder="Опишите местоположение более детально"
+          style={{ height: '15vh', width: '100%', resize: 'vertical' }}
+        />
+      </div>
+      <button onClick={handleSendData}>Отправить данные</button>
     </LoadScript>
   );
 };
