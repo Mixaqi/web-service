@@ -27,29 +27,33 @@ const Report = () => {
     setMarkers(updatedMarkers)
   }
 
-  const handleSendData = () => {
+  const handleSendData = async () => {
     const dataToSend = {
       markers,
       textData,
+    };
+
+    try {
+      const response = await fetch('your_api_endpoint', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      setMarkers([])
+      setTextData('')
+
+      const data = await response.json();
+      console.log('Data sent successfully:', data);
+    } catch (error) {
+      console.error('Error sending data:', error);
     }
-
-    console.log('Data to send:', dataToSend)
-
-    fetch('your_api_endpoint', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataToSend),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Data sent successfully:', data)
-      })
-      .catch((error) => {
-        console.error('Error sending data:', error)
-      })
-  }
+  };
 
   return (
     <LoadScript googleMapsApiKey="AIzaSyBbew2lrwBi8ibxBzzO_0wO24e4p2cujF8">
