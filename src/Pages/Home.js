@@ -5,7 +5,7 @@ import Cards from "../Components/Cards";
 class Home extends Component {
     render() {
         return (
-            <div class = "container-fluid">
+            <div className = "container-fluid">
                 <div class="row">
                     <CarouselBox />
                 </div>
