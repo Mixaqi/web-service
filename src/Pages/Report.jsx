@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState} from 'react'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 
 const Report = () => {
   const [markers, setMarkers] = useState([])
   const [textData, setTextData] = useState('')
-  const [mapCenter, setMapCenter] = useState({ lat: 0, lng: 0 })
+  const [mapCenter] = useState({ lat: 0, lng: 0 })
 
   const handleMapClick = (event) => {
     const newMarker = {

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { NavItem } from "react-bootstrap";
 import { Container, Tab, Nav, Row, Col } from "react-bootstrap";
 import drugs1 from "./drugs1.jpeg";
 import drugs2 from "./drugs2.webp";

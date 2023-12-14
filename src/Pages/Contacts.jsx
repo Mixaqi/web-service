@@ -20,6 +20,24 @@ function Contacts() {
     if (emailError || nameError || ageError || infoError) setFormValid(false)
     else setFormValid(true)
   }, [emailError, nameError, ageError, infoError])
+  
+  const handleSubmit = (e) =>{
+    e.preventDefault()
+    handleSendData()
+    setEmail('');
+    setName('');
+    setAge(0);
+    setInfo('');
+    setEmailDirty(false);
+    setNameDirty(false);
+    setAgeDirty(false);
+    setInfoDirty(false);
+    setEmailError('Email не может быть пустым');
+    setNameError('Имя не может быть пустым');
+    setAgeError('Возраст не может быть пустым');
+    setInfoError('Это поле не может быть пустым');
+    setFormValid(false);
+  }
 
   const emailHandler = (e) => {
     setEmail(e.target.value)
@@ -68,9 +86,31 @@ function Contacts() {
         break
     }
   }
+  const handleSendData = ()=>{
+    const dataToSend={
+      email,
+      name,
+      age,
+      info,
+    }
+    fetch('your_api_endpoint', {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataToSend),
+    })
+    .then((response)=>response.json())
+    .then((data)=>{
+      console.log('Successfully:', data)
+    })
+    .catch((error) => {
+      console.error('Error sending data:', error)
+  })
+}
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <h3>Заполните форму обратной связи</h3>
       {emailDirty && emailError && <div className="error">{emailError}</div>}
       <input
