@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 
 const Report = () => {
@@ -31,7 +31,7 @@ const Report = () => {
     const dataToSend = {
       markers,
       textData,
-    };
+    }
 
     try {
       const response = await fetch('your_api_endpoint', {
@@ -40,20 +40,20 @@ const Report = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(dataToSend),
-      });
+      })
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error('Network response was not ok')
       }
       setMarkers([])
       setTextData('')
 
-      const data = await response.json();
-      console.log('Data sent successfully:', data);
+      const data = await response.json()
+      console.log('Data sent successfully:', data)
     } catch (error) {
-      console.error('Error sending data:', error);
+      console.error('Error sending data:', error)
     }
-  };
+  }
 
   return (
     <LoadScript googleMapsApiKey="AIzaSyBbew2lrwBi8ibxBzzO_0wO24e4p2cujF8">

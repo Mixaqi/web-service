@@ -15,19 +15,19 @@ function Contacts() {
   const [ageError, setAgeError] = useState('Возраст не может быть пустым')
   const [infoError, setInfoError] = useState('Это поле не может быть пустым')
   const [formValid, setFormValid] = useState(false)
-  const [isSubmitting, setIsSubmitting]= useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     if (emailError || nameError || ageError || infoError) setFormValid(false)
     else setFormValid(true)
   }, [emailError, nameError, ageError, infoError])
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (isSubmitting){
-      return;
+    if (isSubmitting) {
+      return
     }
-    try{
+    try {
       setIsSubmitting(true)
       await handleSendData
       handleSendData()
@@ -44,13 +44,12 @@ function Contacts() {
       setAgeError('Возраст не может быть пустым')
       setInfoError('Это поле не может быть пустым')
       setFormValid(false)
-    }catch (error){
+    } catch (error) {
       console.error(error)
-    }finally{
+    } finally {
       setIsSubmitting(false)
     }
   }
-  
 
   const emailHandler = (e) => {
     setEmail(e.target.value)
@@ -105,7 +104,7 @@ function Contacts() {
       name,
       age,
       info,
-    };
+    }
 
     try {
       const response = await fetch('your_api_endpoint', {
@@ -114,22 +113,19 @@ function Contacts() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(dataToSend),
-      });
+      })
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error('Network response was not ok')
       }
 
-      const data = await response.json();
-      console.log('Successfully:', data);
+      const data = await response.json()
+      console.log('Successfully:', data)
     } catch (error) {
-      console.error('Error sending data:', error);
-      throw error;
+      console.error('Error sending data:', error)
+      throw error
     }
   }
-  
-
-  
 
   return (
     <form onSubmit={handleSubmit}>

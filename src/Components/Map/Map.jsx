@@ -33,4 +33,4 @@ const Map = ({ center }) => {
     </div>
   )
 }
-export { Map }
+export default Map
