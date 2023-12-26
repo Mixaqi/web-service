@@ -19,3 +19,5 @@ class Report(models.Model):
     is_complete = models.BooleanField("Завершено", default=False)
     #geodata
     description = models.TextField()
+    email = models.EmailField(max_length=100)
+    photo = models.ImageField(null=True, blank=True)
