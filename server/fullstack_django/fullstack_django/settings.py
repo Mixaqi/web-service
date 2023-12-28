@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__file__)
 
@@ -69,10 +70,9 @@ TEMPLATES = [
 WSGI_APPLICATION = "fullstack_django.wsgi.application"
 
 
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("DB_NAME"),
         "USER": os.environ.get("DB_USER"),
         "PASSWORD": os.environ.get("DB_PASSWORD"),
@@ -80,11 +80,6 @@ DATABASES = {
         "PORT": os.environ.get("DB_PORT"),
     },
 }
-# logger.info("DATABASE NAME: %s", os.environ.get("DB_NAME"))
-# logger.info("DATABASE USER: %s", os.environ.get("DB_USER"))
-# logger.info("DATABASE PASSWORD: %s", os.environ.get("DB_PASSWORD"))
-# logger.info("DATABASE HOST: %s", os.environ.get("DB_HOST"))
-# logger.info("DATABASE PORT: %s", os.environ.get("DB_PORT"))
 
 
 # Password validation
@@ -127,4 +122,3 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
