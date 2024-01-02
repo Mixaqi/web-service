@@ -9,7 +9,7 @@ class Appeal(models.Model):
     email = models.EmailField(max_length=120)
     name = models.CharField(default="")
     age = models.IntegerField(null=False)
-    description = models.TextField(null=False)
+    info = models.TextField(default="")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
