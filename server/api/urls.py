@@ -1,7 +1,12 @@
-from django.urls import path
+from __future__ import annotations
 
-from . import views
+from rest_framework.routers import DefaultRouter
 
-urlpatterns = [
-    path("", views.api_home),
-]
+from api.views import AppealViewSet
+
+router = DefaultRouter()
+router.register("appeals", AppealViewSet)
+
+urlpatterns = []
+
+urlpatterns.extend(router.urls)
