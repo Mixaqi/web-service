@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
+import React, { useEffect, useState } from 'react'
 
 const Report = () => {
+  const googleMapsApiKey = `${process.env.REACT_APP_GMAPS_API_KEY}`
   const [markers, setMarkers] = useState([])
-  const [textData, setTextData] = useState('')
-  const [mapCenter] = useState({ lat: 0, lng: 0 })
+  const [text_data, setTextData] = useState('')
+  const [mapCenter] = useState({ lat: 52.090261, lng: 23.717483 })
   const [email, setEmail] = useState('')
   const [photo, setPhoto] = useState(null)
   const [emailDirty, setEmailDirty] = useState(false)
@@ -83,12 +84,13 @@ const Report = () => {
   const handleSendData = async () => {
     const dataToSend = {
       markers,
-      textData,
+      text_data,
       email,
       photo,
     }
+    console.log('Data to be sent:', dataToSend)
     try {
-      const response = await fetch('your_api_endpoint', {
+      const response = await fetch('http://127.0.0.1:8000/api/reports/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -97,10 +99,11 @@ const Report = () => {
       })
 
       if (!response.ok) {
-        throw new Error('Network response was not ok')
+        const errorData = await response.json();
+        throw new Error(`Network response was not ok: ${JSON.stringify(errorData)}`)
       }
 
-      const data = await response.json() 
+      const data = await response.json()
       console.log('Successfully:', data)
     } catch (error) {
       console.error('Error sending data:', error)
@@ -110,7 +113,7 @@ const Report = () => {
 
   return (
     <form onSubmit={handleSendData} style={{ width: '100%' }}>
-      <LoadScript googleMapsApiKey="AIzaSyBbew2lrwBi8ibxBzzO_0wO24e4p2cujF8">
+      <LoadScript googleMapsApiKey={"AIzaSyBbew2lrwBi8ibxBzzO_0wO24e4p2cujF8"}>
         <GoogleMap
           mapContainerStyle={{ height: '60vh', width: '100%' }}
           zoom={10}
@@ -134,7 +137,7 @@ const Report = () => {
         </GoogleMap>
         <div>
           <textarea
-            value={textData}
+            value={text_data}
             onChange={(e) => setTextData(e.target.value)}
             placeholder="Опишите местоположение более детально"
             style={{ height: '15vh', width: '100%', resize: 'vertical' }}

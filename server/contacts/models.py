@@ -5,7 +5,7 @@ from django.db import models
 
 class Appeal(models.Model):
     id = models.AutoField(primary_key=True)
-    is_complete = models.BooleanField("Завершено", default=False)
+    is_complete = models.BooleanField("Завершено", default=False, null = False)
     email = models.EmailField(max_length=120)
     name = models.CharField(default="")
     age = models.IntegerField(null=False)
