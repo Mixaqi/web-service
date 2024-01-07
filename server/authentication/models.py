@@ -33,7 +33,8 @@ def create_user_profile(sender: type[User], instance: User, created: bool, **kwa
 
 
 # @receiver(post_save, sender=User)
-def save_user_profile(sender: type[User], instance: User, **kwargs: dict) -> None:
+# def save_user_profile(sender: type[User], instance: User, **kwargs: dict) -> None:
+def save_user_profile(sender, instance, **kwargs: dict) -> None:
     instance.profile.save()
 
 post_save.connect(create_user_profile, sender=User)
