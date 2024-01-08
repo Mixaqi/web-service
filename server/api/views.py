@@ -39,8 +39,8 @@ class RegisterView(generics.CreateAPIView):
 @permission_classes([IsAuthenticated])
 def dashboard(request: Any) -> Response:
     if request.method == "GET":
-        context = f"{request.user}, GET response"
-        return Response({"response": context}, status=status.HTTP_200_OK)
+        response = f"{request.user}, GET response"
+        return Response({"response": response}, status=status.HTTP_200_OK)
     elif request.method == "POST":
         text = request.data.get("text")
         response = f"Hey {request.user}, your text is {text}"
