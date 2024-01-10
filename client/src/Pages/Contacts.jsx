@@ -105,7 +105,7 @@ function Contacts() {
       age,
       info,
     }
-  
+
     try {
       const response = await fetch('http://127.0.0.1:8000/api/appeals/', {
         method: 'POST',
@@ -114,12 +114,14 @@ function Contacts() {
         },
         body: JSON.stringify(dataToSend),
       })
-  
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Network response was not ok: ${JSON.stringify(errorData)}`);
+        const errorData = await response.json()
+        throw new Error(
+          `Network response was not ok: ${JSON.stringify(errorData)}`,
+        )
       }
-  
+
       const data = await response.json()
       console.log('Successfully:', data)
     } catch (error) {

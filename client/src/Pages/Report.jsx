@@ -99,8 +99,10 @@ const Report = () => {
       })
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Network response was not ok: ${JSON.stringify(errorData)}`)
+        const errorData = await response.json()
+        throw new Error(
+          `Network response was not ok: ${JSON.stringify(errorData)}`,
+        )
       }
 
       const data = await response.json()
@@ -113,7 +115,7 @@ const Report = () => {
 
   return (
     <form onSubmit={handleSendData} style={{ width: '100%' }}>
-      <LoadScript googleMapsApiKey={"AIzaSyBbew2lrwBi8ibxBzzO_0wO24e4p2cujF8"}>
+      <LoadScript googleMapsApiKey={'AIzaSyBbew2lrwBi8ibxBzzO_0wO24e4p2cujF8'}>
         <GoogleMap
           mapContainerStyle={{ height: '60vh', width: '100%' }}
           zoom={10}

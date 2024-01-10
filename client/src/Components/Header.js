@@ -1,60 +1,86 @@
 import React, { Component } from 'react'
 import {
-  Navbar,
-  Nav,
+  Button,
   Container,
+  Nav,
+  Navbar,
   NavbarBrand,
-  NavbarToggle,
   NavbarCollapse,
+  NavbarToggle,
 } from 'react-bootstrap'
-import logo from './logo192.png'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from '../Pages/Home'
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  Navigate,
+} from 'react-router-dom'
 import About from '../Pages/About'
 import Contacts from '../Pages/Contacts'
+import Home from '../Pages/Home'
 import Report from '../Pages/Report'
+import Loginpage from '../Pages/Loginpage'
+import Registerpage from '../Pages/Registerpage'
+import logo from './logo192.png'
+import { AuthProvider } from '../context/AuthContext'
+import PrivateRoute from '../utils/PrivateRoute'
 
 export default class Header extends Component {
   render() {
     return (
-      <>
-        <Navbar
-          sticky="top"
-          collapseOnSelect
-          expand="md"
-          bg="dark"
-          variant="dark"
-        >
-          <Container>
-            <NavbarBrand href="/">
-              <img
-                src={logo}
-                height="30"
-                width="30"
-                className="d-inline-block align-top"
-                alt="logo"
-              />
-            </NavbarBrand>
-            <NavbarToggle aria-controls="responsive-navbar-nav" />
-            <NavbarCollapse id="responsive-navbar-nav">
-              <Nav className="mr-auto">
-                <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/about">About</Nav.Link>
-                <Nav.Link href="/contacts">Contacts</Nav.Link>
-                <Nav.Link href="/report">Report</Nav.Link>
-              </Nav>
-            </NavbarCollapse>
-          </Container>
-        </Navbar>
-        <Router>
+      <Router>
+        <AuthProvider>
+          <Navbar
+            sticky="top"
+            collapseOnSelect
+            expand="md"
+            bg="dark"
+            variant="dark"
+          >
+            <Container>
+              <NavbarBrand href="/">
+                <img
+                  src={logo}
+                  height="30"
+                  width="30"
+                  className="d-inline-block align-top"
+                  alt="logo"
+                />
+              </NavbarBrand>
+              <NavbarToggle aria-controls="responsive-navbar-nav" />
+              <NavbarCollapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
+                  <Nav.Link href="/">Home</Nav.Link>
+                  <Nav.Link href="/about">About</Nav.Link>
+                  <Nav.Link href="/contacts">Contacts</Nav.Link>
+                  <Nav.Link href="/report">Report</Nav.Link>
+                </Nav>
+                <Nav>
+                  <Button href='/login' variant="primary" className="mr-2">
+                    LogIn
+                  </Button>
+                  <Button href='register' variant="primary">SignIn</Button>
+                </Nav>
+              </NavbarCollapse>
+            </Container>
+          </Navbar>
           <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/about" element={<About />} />
-            <Route exact path="/contacts" element={<Contacts />} />
-            <Route exact path="/report" element={<Report />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contacts" element={<Contacts />} />
+            <Route path="login" element={<Loginpage />} />
+            <Route path="register" element={<Registerpage />} />
+            <Route
+              path="/report"
+              element={
+                <PrivateRoute>
+                  <Report />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/*" element={<Navigate to="/" />} />
           </Routes>
-        </Router>
-      </>
+        </AuthProvider>
+      </Router>
     )
   }
 }
