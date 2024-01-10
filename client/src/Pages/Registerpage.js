@@ -6,18 +6,18 @@ function Registerpage() {
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [password2, setPassword2] = useState('')
+  const [confirmed_password, setConfirmedPassword] = useState('')
 
   const { registerUser } = useContext(AuthContext)
 
   console.log(email)
   console.log(username)
   console.log(password)
-  console.log(password2)
+  console.log(confirmed_password)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    registerUser(email, username, password, password2)
+    registerUser(email, username, password, confirmed_password)
   }
 
   return (
@@ -80,7 +80,7 @@ function Registerpage() {
                               id="form2Example27"
                               className="form-control form-control-lg"
                               placeholder="Confirm Password"
-                              onChange={(e) => setPassword2(e.target.value)}
+                              onChange={(e) => setConfirmedPassword(e.target.value)}
                             />
                           </div>
                           <div className="pt-1 mb-4">

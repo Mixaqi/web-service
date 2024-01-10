@@ -55,10 +55,12 @@ export default class Header extends Component {
                   <Nav.Link href="/report">Report</Nav.Link>
                 </Nav>
                 <Nav>
-                  <Button href='/login' variant="primary" className="mr-2">
+                  <Button href="/login" variant="primary">
                     LogIn
                   </Button>
-                  <Button href='register' variant="primary">SignIn</Button>
+                  <Button href="register" variant="primary">
+                    SignIn
+                  </Button>
                 </Nav>
               </NavbarCollapse>
             </Container>
