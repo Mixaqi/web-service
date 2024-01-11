@@ -80,7 +80,9 @@ function Registerpage() {
                               id="form2Example27"
                               className="form-control form-control-lg"
                               placeholder="Confirm Password"
-                              onChange={(e) => setConfirmedPassword(e.target.value)}
+                              onChange={(e) =>
+                                setConfirmedPassword(e.target.value)
+                              }
                             />
                           </div>
                           <div className="pt-1 mb-4">

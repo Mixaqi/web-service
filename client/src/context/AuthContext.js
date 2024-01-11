@@ -3,9 +3,7 @@ import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
 const swal = require('sweetalert2')
 
-const AuthContext = createContext()
-
-export default AuthContext
+const AuthContext = createContext('')
 
 export const AuthProvider = ({ children }) => {
   const [authTokens, setAuthTokens] = useState(() =>
@@ -68,7 +66,12 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const registerUser = async (email, username, password, confirmed_password) => {
+  const registerUser = async (
+    email,
+    username,
+    password,
+    confirmed_password,
+  ) => {
     const response = await fetch('http://127.0.0.1:8000/api/register/', {
       method: 'POST',
       headers: {
@@ -111,7 +114,7 @@ export const AuthProvider = ({ children }) => {
     setAuthTokens(null)
     setUser(null)
     localStorage.removeItem('authTokens')
-    history.push('/login')
+    history('/login')
     swal.fire({
       title: 'YOu have been logged out...',
       icon: 'success',
@@ -146,3 +149,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   )
 }
+
+export default AuthContext

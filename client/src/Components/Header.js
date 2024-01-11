@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 import {
   Button,
   Container,
@@ -8,81 +8,77 @@ import {
   NavbarCollapse,
   NavbarToggle,
 } from 'react-bootstrap'
-import {
-  Route,
-  BrowserRouter as Router,
-  Routes,
-  Navigate,
-} from 'react-router-dom'
-import About from '../Pages/About'
-import Contacts from '../Pages/Contacts'
-import Home from '../Pages/Home'
-import Report from '../Pages/Report'
-import Loginpage from '../Pages/Loginpage'
-import Registerpage from '../Pages/Registerpage'
+import { Link } from 'react-router-dom'
+import AuthContext from '../context/AuthContext'
 import logo from './logo192.png'
-import { AuthProvider } from '../context/AuthContext'
-import PrivateRoute from '../utils/PrivateRoute'
 
-export default class Header extends Component {
-  render() {
-    return (
-      <Router>
-        <AuthProvider>
-          <Navbar
-            sticky="top"
-            collapseOnSelect
-            expand="md"
-            bg="dark"
-            variant="dark"
-          >
-            <Container>
-              <NavbarBrand href="/">
-                <img
-                  src={logo}
-                  height="30"
-                  width="30"
-                  className="d-inline-block align-top"
-                  alt="logo"
-                />
-              </NavbarBrand>
-              <NavbarToggle aria-controls="responsive-navbar-nav" />
-              <NavbarCollapse id="responsive-navbar-nav">
-                <Nav className="mr-auto">
-                  <Nav.Link href="/">Home</Nav.Link>
-                  <Nav.Link href="/about">About</Nav.Link>
-                  <Nav.Link href="/contacts">Contacts</Nav.Link>
-                  <Nav.Link href="/report">Report</Nav.Link>
-                </Nav>
-                <Nav>
-                  <Button href="/login" variant="primary">
+function Header() {
+  const { user, logoutUser } = useContext(AuthContext)
+  const token = localStorage.getItem('authTokens')
+
+  return (
+    <Navbar sticky="top" collapseOnSelect expand="md" bg="dark" variant="dark">
+      <Container>
+        <NavbarBrand as={Link} to="/">
+          <img
+            src={logo}
+            height="30"
+            width="30"
+            className="d-inline-block align-top"
+            alt="logo"
+          />
+        </NavbarBrand>
+        <NavbarToggle aria-controls="responsive-navbar-nav" />
+        <NavbarCollapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link as={Link} to="/">
+              Home
+            </Nav.Link>
+            <Nav.Link as={Link} to="/about">
+              About
+            </Nav.Link>
+            <Nav.Link as={Link} to="/contacts">
+              Contacts
+            </Nav.Link>
+            {token !== null && (
+              <Nav.Link as={Link} to="/report">
+                Report
+              </Nav.Link>
+            )}
+          </Nav>
+          <Nav>
+            {token === null ? (
+              <>
+                <Button variant="primary" className="mr-2">
+                  <Nav.Link as={Link} to="/login">
                     LogIn
-                  </Button>
-                  <Button href="register" variant="primary">
-                    SignIn
-                  </Button>
-                </Nav>
-              </NavbarCollapse>
-            </Container>
-          </Navbar>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contacts" element={<Contacts />} />
-            <Route path="login" element={<Loginpage />} />
-            <Route path="register" element={<Registerpage />} />
-            <Route
-              path="/report"
-              element={
-                <PrivateRoute>
-                  <Report />
-                </PrivateRoute>
-              }
-            />
-            <Route path="/*" element={<Navigate to="/" />} />
-          </Routes>
-        </AuthProvider>
-      </Router>
-    )
-  }
+                  </Nav.Link>
+                </Button>
+                <Button variant="primary">
+                  <Nav.Link as={Link} to="/register">
+                    Register
+                  </Nav.Link>
+                </Button>
+              </>
+            ) : (
+              <>
+                {/* <Nav.Link as={Link} to="/report">
+                  Report
+                </Nav.Link> */}
+                <Button
+                  variant="primary"
+                  onClick={logoutUser}
+                  style={{ cursor: 'pointer' }}
+                >
+                  LogOut
+                </Button>
+              </>
+            )}
+          </Nav>
+        </NavbarCollapse>
+      </Container>
+    </Navbar>
+  )
 }
+
+export default Header
