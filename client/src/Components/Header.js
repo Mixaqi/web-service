@@ -62,9 +62,6 @@ function Header() {
               </>
             ) : (
               <>
-                {/* <Nav.Link as={Link} to="/report">
-                  Report
-                </Nav.Link> */}
                 <Button
                   variant="primary"
                   onClick={logoutUser}
