@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 from __future__ import annotations
 
+import logging
 import os
 from datetime import timedelta
 from pathlib import Path
@@ -19,6 +20,8 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__file__)
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,7 +33,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG")
 
-ALLOWED_HOSTS = []
+
 
 
 # Application definition
@@ -42,7 +45,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "django.contrib.gis",
     "corsheaders",
     "jazzmin",
     "api",
@@ -54,10 +56,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
     # "django.contrib.gis.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -142,9 +144,14 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_ALLOWED_ORIGINS = [
+ALLOWED_HOSTS = [os.environ.get("CORS_ALLOWED_ORIGIN")]
+CORS_ORIGIN_ALLOW_ALL = False
+# CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGIN", "").split(",")
+# logging.info(CORS_ALLOWED_ORIGINS)
+CORS_ORIGIN_WHITELIST = (
     os.environ.get("CORS_ALLOWED_ORIGIN"),
-]
+)
+
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
