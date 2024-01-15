@@ -149,8 +149,8 @@ CORS_ORIGIN_ALLOW_ALL = False
 # CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGIN", "").split(",")
 # logging.info(CORS_ALLOWED_ORIGINS)
 CORS_ORIGIN_WHITELIST = (
-    os.environ.get("CORS_ALLOWED_ORIGIN"),
-)
+    os.environ.get("CORS_ALLOWED_ORIGIN").split(',')
+    )
 
 
 REST_FRAMEWORK = {
