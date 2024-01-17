@@ -32,6 +32,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.common")
 
 
 
@@ -144,15 +145,13 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# ALLOWED_HOSTS = [os.environ.get("CORS_ALLOWED_ORIGIN")]
-CORS_ORIGIN_ALLOW_ALL = False
-# CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGIN", "").split(",")
-# logging.info(CORS_ALLOWED_ORIGINS)
+# CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-    os.environ.get("CORS_ALLOWED_ORIGINS").split(",")
+    os.environ.get("CORS_ALLOWED_ORIGINS").split(","),
 )
 logging.info(CORS_ORIGIN_WHITELIST)
 
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
