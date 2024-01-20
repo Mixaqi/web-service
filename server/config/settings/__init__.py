@@ -1,13 +1,15 @@
 from __future__ import annotations
 
-from .base import *
-from .dev import *
+from glob import glob
+from os import environ
 
-live = False
-try:
-    from .dev import *
-except ImportError:
-    live = True
+from split_settings.tools import include, optional
 
-if live:
-    from .prod import *
+ENV=environ.get("DJANGO_ENV") or "dev"
+
+base_settings = [
+    *glob("settings/*.py"),
+    "{0}.py".format(ENV),
+]
+
+include(*base_settings)
