@@ -1,15 +1,12 @@
 from __future__ import annotations
 
-from glob import glob
-from os import environ
+import os
 
-from split_settings.tools import include, optional
+from split_settings.tools import include
 
-ENV=environ.get("DJANGO_ENV") or "dev"
+include("base.py")
 
-base_settings = [
-    *glob("settings/*.py"),
-    "{0}.py".format(ENV),
-]
-
-include(*base_settings)
+if os.environ.get("DJANGO_ENV") == "dev":
+    include("dev.py")
+elif os.environ.get("DJANGO_ENV") == "prod":
+    include("prod.py")

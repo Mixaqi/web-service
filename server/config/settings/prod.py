@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import os
 
+from config.settings.base import *
+
 DEBUG=False
 
 DATABASES = {

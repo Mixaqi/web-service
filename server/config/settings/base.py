@@ -20,7 +20,6 @@ logger = logging.getLogger(__file__)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
-logger.info(SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG")
@@ -43,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
     "authentication",
+    "config",
 ]
 
 MIDDLEWARE = [
@@ -84,11 +84,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
-        "PORT": os.environ.get("DB_PORT"),
+        "NAME": os.environ.get("DB_NAME") or "web-service",
+        "USER": os.environ.get("DB_USER") or "postgres",
+        "PASSWORD": os.environ.get("DB_PASSWORD") or "2283371488",
+        "HOST": os.environ.get("DB_HOST") or "postgres",
+        "PORT": os.environ.get("DB_PORT") or 5432,
     },
 }
 

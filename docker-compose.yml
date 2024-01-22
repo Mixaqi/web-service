@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 services:
   postgres:
@@ -24,8 +24,11 @@ services:
       - DB_PORT=${DB_PORT}
     depends_on:
       - postgres
-    command: ["bash", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
-
+    command: ["bash",
+              "-c",
+              "python manage.py wait_for_db &&
+              python manage.py migrate &&
+              python manage.py runserver 0.0.0.0:8000"]
   react:
     build:
       context: ./client
