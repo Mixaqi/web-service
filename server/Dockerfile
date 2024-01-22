@@ -4,7 +4,11 @@ WORKDIR /server
 
 COPY ../requirements.txt .
 
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt \
+    mkdir -p /vol/web/static &&  \
+    mkdir -p /vol/web/media && \
+    chown -R web-service:server /vol && \
+    chmod -R 755 /vol
 
 COPY . /server/
 
