@@ -1,8 +1,8 @@
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import React, { useEffect, useState } from 'react'
 
+
 const Report = () => {
-  const googleMapsApiKey = `${process.env.REACT_APP_GMAPS_API_KEY}`
   const [markers, setMarkers] = useState([])
   const [text_data, setTextData] = useState('')
   const [mapCenter] = useState({ lat: 52.090261, lng: 23.717483 })
@@ -115,7 +115,7 @@ const Report = () => {
 
   return (
     <form onSubmit={handleSendData} style={{ width: '100%' }}>
-      <LoadScript googleMapsApiKey={'AIzaSyBbew2lrwBi8ibxBzzO_0wO24e4p2cujF8'}>
+      <LoadScript googleMapsApiKey={process.env.REACT_APP_GMAPS_API_KEY}>
         <GoogleMap
           mapContainerStyle={{ height: '60vh', width: '100%' }}
           zoom={10}

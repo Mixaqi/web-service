@@ -17,6 +17,7 @@ function Contacts() {
   const [formValid, setFormValid] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+
   useEffect(() => {
     if (emailError || nameError || ageError || infoError) setFormValid(false)
     else setFormValid(true)
@@ -107,7 +108,7 @@ function Contacts() {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/appeals/', {
+      const response = await fetch(process.env.REACT_APP_CONTACTS_PATH, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
