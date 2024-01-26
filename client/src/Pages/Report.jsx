@@ -1,7 +1,6 @@
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import React, { useEffect, useState } from 'react'
 
-
 const Report = () => {
   const [markers, setMarkers] = useState([])
   const [text_data, setTextData] = useState('')
@@ -11,7 +10,7 @@ const Report = () => {
   const [emailDirty, setEmailDirty] = useState(false)
   const [emailError, setEmailError] = useState('Email не может быть пустым')
   const [formValid, setFormValid] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  // const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     if (emailError) setFormValid(false)
@@ -48,10 +47,10 @@ const Report = () => {
     setMarkers(updatedMarkers)
   }
 
-  const handlePhotoChange = (e) => {
-    const selectedPhoto = e.target.files[0]
-    setPhoto(selectedPhoto)
-  }
+  // const handlePhotoChange = (e) => {
+  //   const selectedPhoto = e.target.files[0]
+  //   setPhoto(selectedPhoto)
+  // }
 
   const blurHandler = (e) => {
     switch (e.target.name) {
@@ -61,25 +60,25 @@ const Report = () => {
     }
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (isSubmitting) {
-      return
-    }
-    try {
-      setIsSubmitting(true)
-      await handleSendData
-      handleSendData()
-      setEmail('')
-      setEmailDirty(false)
-      setEmailError('Email не может быть пустым')
-      setPhoto(null)
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setIsSubmitting(true)
-    }
-  }
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault()
+  //   if (isSubmitting) {
+  //     return
+  //   }
+  //   try {
+  //     setIsSubmitting(true)
+  //     await handleSendData
+  //     handleSendData()
+  //     setEmail('')
+  //     setEmailDirty(false)
+  //     setEmailError('Email не может быть пустым')
+  //     setPhoto(null)
+  //   } catch (error) {
+  //     console.error(error)
+  //   } finally {
+  //     setIsSubmitting(true)
+  //   }
+  // }
 
   const handleSendData = async () => {
     const dataToSend = {
@@ -90,7 +89,7 @@ const Report = () => {
     }
     console.log('Data to be sent:', dataToSend)
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/reports/', {
+      const response = await fetch(process.env.REACT_APP_REPORT_PATH, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

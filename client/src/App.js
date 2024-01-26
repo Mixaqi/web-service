@@ -4,7 +4,12 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Header from './Components/Header'
 import { AuthProvider } from './context/AuthContext'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom'
 import About from './Pages/About'
 import Contacts from './Pages/Contacts'
 import Home from './Pages/Home'

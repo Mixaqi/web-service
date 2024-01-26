@@ -17,7 +17,6 @@ function Contacts() {
   const [formValid, setFormValid] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-
   useEffect(() => {
     if (emailError || nameError || ageError || infoError) setFormValid(false)
     else setFormValid(true)
