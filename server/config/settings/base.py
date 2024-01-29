@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
-    "jazzmin",
     "api",
     "contacts",
     "report",
@@ -117,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Moscow"
 
 USE_I18N = True
 
@@ -138,10 +137,10 @@ STATIC_ROOT = "/vol/web/static"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = (
-    os.environ.get("CORS_ALLOWED_ORIGINS").split(",")
-)
+CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_WHITELIST = (
+#     os.environ.get("CORS_ALLOWED_ORIGINS").split(",")
+# )
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
 
@@ -184,3 +183,27 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = "authentication.User"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": os.environ.get("REDIS_URL","redis://127.0.0.1:6379"),
+    },
+}
+
+#CELERY
+CELERY_BROKER_URL="redis://127.0.0.1:6379"
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TASK_SERIALIZER = "json"
+CELERY_TIMEZONE= "Europe/Moscow"
+
+# EMAIL_BACKEND = "django.core.mail.backends.smpt.EmailBackend"
+# EMAIL_HOST = "smtop.gmail.com"
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = ""
+# EMAIL_HOST_PASSWORD=""
+
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID=os.environ.get("USER_ID")

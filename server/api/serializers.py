@@ -4,6 +4,7 @@ from typing import Any
 
 from authentication.models import User
 from contacts.models import Appeal
+from contacts.telegram_service import send_telegram_message
 from django.contrib.auth.password_validation import validate_password
 from report.models import Report
 from rest_framework import serializers
@@ -13,14 +14,14 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 class AppealSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appeal
-        fields = ["id", "email", "name", "age", "info", "is_complete","created_at", "updated_at" ]
+        fields = ["id", "email", "name", "age", "info", "is_complete", "created_at", "updated_at"]
 
-    def create_appeal(self, validated_data: dict[str, Any]) -> Appeal:
-        appeal = super(AppealSerializer).create_appeal(validated_data)
-        #appeal.set_is_complete(appeal.is_complete)
-        appeal.is_complete = False
-        appeal.save()
+    def create(self, validated_data: dict[str, Any]) -> Appeal:
+        validated_data["is_complete"] = False  # Устанавливаем значение is_complete
+        appeal = super(AppealSerializer, self).create(validated_data)
+        send_telegram_message(f"New appeal: {validated_data}", chat_id="1935611743")
         return appeal
+
 
 class ReportSerializer(serializers.ModelSerializer):
     class Meta:
